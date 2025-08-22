@@ -197,6 +197,31 @@ h6 {
   background: #005885;
 }
 
+.btn-download {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-primary);
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  border: 2px solid var(--color-accent);
+}
+
+.btn-download:hover {
+  background: var(--color-accent-hover);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.btn-download i {
+  margin-right: 8px;
+}
+
 #main {
   margin-left: 300px;
 }
