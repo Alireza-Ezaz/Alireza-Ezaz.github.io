@@ -55,7 +55,7 @@ h4,
 h5,
 h6 {
   font-family: "Poppins", sans-serif !important;
-  text-align: justify;
+  text-align: left;
 }
 
 #main {
@@ -406,6 +406,31 @@ h6 {
     line-height: 24px;
     margin-bottom: 30px;
   }
+  
+  /* Mobile improvements for better readability */
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .about .content p {
+    text-align: left;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .about .content ul {
+    padding-left: 0;
+  }
+  
+  .show-list {
+    margin-inline-start: 20px;
+  }
+  
+  .section-title p {
+    text-align: left;
+    line-height: 1.6;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -670,6 +695,28 @@ section {
 
   .breadcrumbs ol li {
     display: inline-block;
+  }
+  
+  /* Additional mobile improvements */
+  .resume .resume-item {
+    padding-left: 25px;
+    margin-bottom: 20px;
+  }
+  
+  .resume .resume-item ul {
+    padding-left: 15px;
+  }
+  
+  .resume .resume-item ul li {
+    padding-bottom: 8px;
+    line-height: 1.5;
+  }
+  
+  /* Improve spacing for personal interests section */
+  #volunteer .resume-item,
+  .row.mt-4 .resume-item {
+    padding-left: 20px;
+    margin-bottom: 20px;
   }
 }
 
