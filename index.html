@@ -45,7 +45,7 @@
           <a href="mailto:ezaz.sar@gmail.com" class="email"><i class="bi bi-envelope"></i></a>
         </div>
         <div class="mt-3 text-center">
-          <a href="assets/resume.pdf" class="btn btn-download" download>
+          <a href="assets/resume.pdf" class="btn btn-download" id="downloadBtn" target="_blank">
             <i class="bi bi-download"></i> Download Resume (PDF)
           </a>
         </div>
@@ -423,6 +423,32 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Download functionality for mobile devices -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const downloadBtn = document.getElementById('downloadBtn');
+      
+      downloadBtn.addEventListener('click', function(e) {
+        // Check if it's a mobile device
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+          // For mobile devices, open in new tab and show instructions
+          e.preventDefault();
+          
+          // Open PDF in new tab
+          window.open('assets/resume.pdf', '_blank');
+          
+          // Show a helpful message
+          setTimeout(function() {
+            alert('PDF opened in new tab. To download:\n\n• Tap and hold the PDF\n• Select "Save to Files" or "Download"\n\nOr use the share button in your browser.');
+          }, 500);
+        }
+        // For desktop, let the default behavior work
+      });
+    });
+  </script>
 
 </body>
 
