@@ -1,10 +1,13 @@
 :root {
   --color-primary: white;
-  --color-secondary: #f7f7f7;
-  --color-secondary-light: #f7f7f78d;
-  --color-tertiary: #e31837;
-  --color-tertiary-bright: #e31836b9;
-  --color-text: #4f5253;
+  --color-secondary: #f8f9fa;
+  --color-secondary-light: #f8f9fa8d;
+  --color-tertiary: #2c3e50;
+  --color-tertiary-bright: #34495e;
+  --color-accent: #3498db;
+  --color-accent-hover: #2980b9;
+  --color-text: #2c3e50;
+  --color-text-light: #7f8c8d;
 }
 
 body {
@@ -25,17 +28,17 @@ body {
 }
 
 ::selection {
-  background: var(--color-tertiary);
+  background: var(--color-accent);
   color: var(--color-primary);
 }
 
 a {
-  color: var(--color-tertiary);
+  color: var(--color-accent);
   text-decoration: none;
 }
 
 a:hover {
-  color: var(--color-tertiary-bright);
+  color: var(--color-accent-hover);
   text-decoration: none;
 }
 
@@ -70,7 +73,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: var(--color-tertiary);
+  background: var(--color-accent);
   width: 40px;
   height: 40px;
   border-radius: 50px;
@@ -80,7 +83,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: var(--color-tertiary-bright);
+  background: var(--color-accent-hover);
 }
 
 .back-to-top i {
@@ -121,7 +124,7 @@ h6 {
   display: block;
   width: 120px;
   height: 120px;
-  border: 8px solid var(--color-tertiary-bright);
+  border: 8px solid var(--color-accent);
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
@@ -137,14 +140,14 @@ h6 {
 
 #header .profile h1 a,
 #header .profile h1 a:hover {
-  color: var(--color-tertiary-bright);
+  color: var(--color-accent);
   text-decoration: none;
 }
 
 #header .profile .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: var(--color-tertiary-bright);
+  background: var(--color-accent);
   color: var(--color-primary);
   line-height: 1;
   padding: 8px 0;
@@ -157,8 +160,8 @@ h6 {
 }
 
 #header .profile .social-links a:hover {
-  background: var(--color-tertiary);
-  color: var(--color-secondary);
+  background: var(--color-accent-hover);
+  color: var(--color-primary);
   text-decoration: none;
 }
 
@@ -176,6 +179,22 @@ h6 {
 
 .social-links a.phone:hover {
   background: #20ba5a;
+}
+
+.social-links a.github {
+  background: #333;
+}
+
+.social-links a.github:hover {
+  background: #24292e;
+}
+
+.social-links a.linkedin {
+  background: #0077b5;
+}
+
+.social-links a.linkedin:hover {
+  background: #005885;
 }
 
 #main {
@@ -382,7 +401,7 @@ section {
   display: block;
   width: 50px;
   height: 3px;
-  background: var(--color-tertiary);
+  background: var(--color-accent);
   bottom: 0;
   left: 0;
 }
@@ -397,7 +416,7 @@ section {
 .about .content h3 {
   font-weight: 700;
   font-size: 26px;
-  color: var(--color-tertiary);
+  color: var(--color-accent);
 }
 
 .about .content ul {
@@ -422,7 +441,7 @@ section {
 .about .content ul i {
   font-size: 16px;
   margin-right: 5px;
-  color: var(--color-tertiary);
+  color: var(--color-accent);
   line-height: 0;
 }
 
@@ -445,7 +464,7 @@ section {
 .facts .count-box i {
   display: block;
   font-size: 44px;
-  color: var(--color-tertiary);
+  color: var(--color-accent);
   float: left;
   line-height: 0;
 }
@@ -455,7 +474,7 @@ section {
   line-height: 40px;
   display: block;
   font-weight: 700;
-  color: var(--color-tertiary-bright);
+  color: var(--color-accent);
   margin-left: 60px;
 }
 
@@ -464,14 +483,14 @@ section {
   margin: 0 0 0 60px;
   font-family: "Raleway", sans-serif;
   font-size: 14px;
-  color: var(--color-tertiary);
+  color: var(--color-accent);
 }
 
 .facts .count-box a {
   font-weight: 600;
   display: block;
   margin-top: 20px;
-  color: white;
+  color: var(--color-accent);
   font-size: 15px;
   font-family: "Poppins", sans-serif;
   transition: ease-in-out 0.3s;
@@ -599,7 +618,7 @@ section {
   left: -9px;
   top: 0;
   background: var(--color-secondary);
-  border: 2px solid var(--color-tertiary);
+  border: 2px solid var(--color-accent);
 }
 
 @media (max-width: 768px) {
@@ -642,11 +661,11 @@ section {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: var(--color-tertiary) !important;
+  background: var(--color-accent) !important;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: var(--color-tertiary-bright) !important;
+  background: var(--color-accent-hover) !important;
 }
 
 /* Prelaoder */
