@@ -222,6 +222,19 @@ h6 {
   margin-right: 8px;
 }
 
+/* Volunteer section styling */
+#volunteer .resume-item {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 20px;
+  margin-bottom: 25px;
+}
+
+#volunteer .resume-title {
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
 #main {
   margin-left: 300px;
 }
