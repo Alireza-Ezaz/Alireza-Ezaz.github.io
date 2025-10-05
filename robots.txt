@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://alireza-ezaz.github.io/sitemap.xml
+
