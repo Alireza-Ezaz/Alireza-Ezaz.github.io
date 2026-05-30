@@ -93,13 +93,6 @@
 
     // ---------- Full-Stack & Web ----------
     {
-      cat: "fullstack", featured: "Startup", icon: "bi-kanban-fill", lang: "C#",
-      title: "SevenTask (7Task)",
-      desc: "Full-stack task-management platform I co-founded — Kanban board, calendar, authentication, and chat. Angular + .NET + SQL Server, scaled to 200+ monthly active users.",
-      badges: ["Angular", ".NET", "SQL Server", "REST"],
-      links: [{ i: "bi-github", url: repo("7Task") }, { i: "bi-youtube", url: "https://github.com/Alireza-Ezaz/7Task" }],
-    },
-    {
       cat: "fullstack", featured: "Next.js 16", icon: "bi-upc-scan", lang: "TypeScript",
       title: "Barcode Registration System",
       desc: "Register people via a web form, generate a unique scannable barcode, then look them up by scanning with a phone or webcam. Next.js 16 frontend + FastAPI backend.",
@@ -214,7 +207,7 @@
       const badges = p.badges.map((b) => `<span class="proj-badge">${b}</span>`).join("");
       const ribbon = p.featured ? `<span class="ribbon">${p.featured}</span>` : "";
       return `
-        <article class="proj-card" data-cat="${p.cat}">
+        <article class="proj-card tilt" data-cat="${p.cat}">
           ${ribbon}
           <div class="proj-top">
             <div class="proj-icon"><i class="bi ${p.icon}"></i></div>
@@ -226,6 +219,7 @@
           <div class="proj-meta">
             <span><i class="lang-dot" style="background:${color}"></i> ${p.lang}</span>
           </div>
+          <span class="glare"></span>
         </article>`;
     }).join("");
   }
@@ -240,9 +234,18 @@
       filters.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
       const f = btn.dataset.filter;
+      let shown = 0;
       document.querySelectorAll(".proj-card").forEach((card) => {
         const show = f === "all" || card.dataset.cat === f;
         card.classList.toggle("hide", !show);
+        if (show) {
+          // re-trigger the entrance animation with a stagger
+          card.style.animation = "none";
+          void card.offsetWidth;
+          card.style.animation = "";
+          card.style.animationDelay = Math.min(shown * 40, 320) + "ms";
+          shown++;
+        }
       });
     });
   }
@@ -255,10 +258,15 @@
     const sections = Array.from(document.querySelectorAll("section[id]"));
     const navAnchors = Array.from(document.querySelectorAll(".nav-link"));
     const toTop = document.getElementById("toTop");
+    const progress = document.getElementById("scrollProgress");
 
     const onScroll = () => {
       nav.classList.toggle("scrolled", window.scrollY > 30);
       if (toTop) toTop.classList.toggle("show", window.scrollY > 500);
+      if (progress) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+      }
 
       let current = "";
       const pos = window.scrollY + 120;
@@ -326,16 +334,113 @@
       const items = typedEl.dataset.typedItems.split(",").map((s) => s.trim());
       new Typed(".typed", { strings: items, typeSpeed: 55, backSpeed: 30, backDelay: 1800, loop: true });
     }
+  }
 
-    // Mobile-friendly résumé download
-    document.querySelectorAll("#resumeBtnNav, #resumeBtnHero").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-          e.preventDefault();
-          window.open("assets/resume.pdf", "_blank");
-        }
+  /*---------------- Interactions (glow, tilt, magnetic) ----------------*/
+  function initInteractions() {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    if (reduce || !fine) return; // skip on touch / reduced-motion
+
+    // Ambient glow that trails the cursor
+    const glow = document.getElementById("cursorGlow");
+    let gx = innerWidth / 2, gy = innerHeight / 2, tx = gx, ty = gy, raf = null;
+    const loop = () => {
+      gx += (tx - gx) * 0.12;
+      gy += (ty - gy) * 0.12;
+      if (glow) glow.style.setProperty("--cx", gx + "px"), glow.style.setProperty("--cy", gy + "px");
+      raf = Math.abs(tx - gx) + Math.abs(ty - gy) > 0.5 ? requestAnimationFrame(loop) : null;
+    };
+    window.addEventListener("mousemove", (e) => {
+      tx = e.clientX; ty = e.clientY;
+      if (glow) glow.classList.add("on");
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, { passive: true });
+
+    // 3D tilt + glare
+    const MAX = 9; // degrees
+    document.querySelectorAll(".tilt").forEach((el) => {
+      const glare = el.querySelector(".glare");
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        el.style.transform =
+          `perspective(900px) rotateX(${(0.5 - py) * MAX}deg) rotateY(${(px - 0.5) * MAX}deg) translateZ(0)`;
+        el.classList.add("tilting");
+        if (glare) { glare.style.setProperty("--gx", px * 100 + "%"); glare.style.setProperty("--gy", py * 100 + "%"); }
+      });
+      el.addEventListener("mouseleave", () => {
+        el.style.transform = "";
+        el.classList.remove("tilting");
       });
     });
+
+    // Magnetic buttons
+    document.querySelectorAll("[data-magnetic]").forEach((el) => {
+      const strength = 0.4;
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        el.style.transform =
+          `translate(${(e.clientX - r.left - r.width / 2) * strength}px, ${(e.clientY - r.top - r.height / 2) * strength}px)`;
+      });
+      el.addEventListener("mouseleave", () => { el.style.transform = ""; });
+    });
+  }
+
+  /*---------------- Easter egg (Konami code) ----------------*/
+  function initEasterEgg() {
+    const seq = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+    let i = 0;
+    const messages = [
+      "🔴 You'll Never Walk Alone — YNWA!",
+      "🎾 Game, set, match — nice find!",
+      "🎮 GG! You unlocked the secret.",
+    ];
+    const fire = () => {
+      confetti();
+      const toast = document.getElementById("eggToast");
+      if (toast) {
+        toast.textContent = messages[Math.floor(Math.random() * messages.length)];
+        toast.classList.add("show");
+        clearTimeout(fire._t);
+        fire._t = setTimeout(() => toast.classList.remove("show"), 3600);
+      }
+    };
+    window.addEventListener("keydown", (e) => {
+      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      i = k === seq[i] ? i + 1 : (k === seq[0] ? 1 : 0);
+      if (i === seq.length) { i = 0; fire(); }
+    });
+
+    // Also let the logo be a playful trigger: 4 quick clicks
+    const logo = document.querySelector(".nav-logo .mark");
+    if (logo) {
+      let c = 0, t;
+      logo.addEventListener("click", (e) => {
+        e.preventDefault();
+        c++; clearTimeout(t); t = setTimeout(() => (c = 0), 600);
+        if (c >= 4) { c = 0; fire(); }
+      });
+    }
+  }
+
+  function confetti() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const colors = ["#6366f1","#a855f7","#06b6d4","#ec4899","#fbbf24","#22c55e"];
+    for (let n = 0; n < 90; n++) {
+      const p = document.createElement("span");
+      p.className = "confetti-piece";
+      p.style.left = Math.random() * 100 + "vw";
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      p.style.animationDuration = 2.2 + Math.random() * 1.6 + "s";
+      p.style.animationDelay = Math.random() * 0.4 + "s";
+      p.style.transform = `translateY(0) rotate(${Math.random() * 360}deg)`;
+      p.style.opacity = "0.95";
+      if (Math.random() > 0.5) p.style.borderRadius = "50%";
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 4200);
+    }
   }
 
   /*---------------- Boot ----------------*/
@@ -345,6 +450,8 @@
     initNav();
     initCounters();
     initMisc();
+    initInteractions();
+    initEasterEgg();
     if (window.AOS) AOS.init({ duration: 700, easing: "ease-out-cubic", once: true, offset: 60 });
   }
 

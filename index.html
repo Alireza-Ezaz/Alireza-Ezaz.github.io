@@ -63,6 +63,12 @@
 
 <body>
 
+  <!-- Scroll progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Interactive cursor glow -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
   <!-- Preloader -->
   <div id="preloader"><div class="spinner"></div></div>
 
@@ -78,7 +84,7 @@
         <li><a href="#publications" class="nav-link">Research</a></li>
         <li><a href="#talks" class="nav-link">Talks</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
-        <li class="nav-desktop-cta"><a href="assets/resume.pdf" id="resumeBtnNav" class="btn btn-primary btn-sm" target="_blank"><i class="bi bi-download"></i> Résumé</a></li>
+        <li class="nav-desktop-cta"><a href="#contact" class="btn btn-primary btn-sm" data-magnetic><i class="bi bi-chat-dots-fill"></i> Let's Talk</a></li>
       </ul>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><i class="bi bi-list"></i></button>
@@ -97,8 +103,8 @@
             startup with 200+ users to source-grounded LLM tools and an ICSE&nbsp;2026 research framework.
           </p>
           <div class="hero-cta">
-            <a href="#projects" class="btn btn-primary"><i class="bi bi-grid-3x3-gap-fill"></i> View Projects</a>
-            <a href="assets/resume.pdf" id="resumeBtnHero" class="btn btn-ghost" target="_blank"><i class="bi bi-download"></i> Download Résumé</a>
+            <a href="#projects" class="btn btn-primary" data-magnetic><i class="bi bi-grid-3x3-gap-fill"></i> View Projects</a>
+            <a href="#contact" class="btn btn-ghost" data-magnetic><i class="bi bi-envelope-heart-fill"></i> Let's Connect</a>
           </div>
           <div class="hero-socials">
             <a href="https://github.com/Alireza-Ezaz" target="_blank" aria-label="GitHub"><i class="bi bi-github"></i></a>
@@ -106,7 +112,7 @@
             <a href="mailto:ezaz.sar@gmail.com" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
           </div>
         </div>
-        <div class="hero-portrait" data-aos="fade-left">
+        <div class="hero-portrait tilt" data-aos="fade-left">
           <div class="ring"></div>
           <img src="assets/img/profile-img.jpeg" alt="Alireza Ezaz">
           <span class="float-chip c1"><i class="bi bi-robot"></i> Agentic AI</span>
@@ -246,6 +252,41 @@
         <h2>Things I've <span class="gradient-text">built</span></h2>
         <p>From production apps and hackathon winners to research artifacts and coursework. Filter by category.</p>
       </div>
+
+      <!-- Spotlight: top project -->
+      <article class="spotlight-proj tilt" data-aos="fade-up">
+        <div class="sp-media">
+          <img src="assets/img/seventask.png" alt="SevenTask logo">
+          <span class="sp-flag"><i class="bi bi-star-fill"></i> Top Project</span>
+        </div>
+        <div class="sp-body">
+          <span class="eyebrow">Startup · Co-Founder &amp; Lead Developer</span>
+          <h3>SevenTask</h3>
+          <p>
+            A full-stack task-management platform I co-founded and drove from first commit to
+            <strong>200+ monthly active users</strong>. I designed the architecture, chose the
+            Angular&nbsp;+&nbsp;.NET&nbsp;+&nbsp;SQL&nbsp;Server stack, and shipped the core
+            experience — a drag-and-drop Kanban board, calendar, real-time chat, authentication,
+            and Swagger-documented REST APIs — while leading a 5-person team and using A/B testing
+            to prioritize what to build next.
+          </p>
+          <div class="proj-badges">
+            <span class="proj-badge">Angular</span><span class="proj-badge">.NET</span>
+            <span class="proj-badge">SQL Server</span><span class="proj-badge">REST / Swagger</span>
+            <span class="proj-badge">Kanban</span><span class="proj-badge">Real-time Chat</span>
+          </div>
+          <div class="sp-stats">
+            <div><strong class="gradient-text">200+</strong><span>Monthly users</span></div>
+            <div><strong class="gradient-text">5</strong><span>Engineers led</span></div>
+            <div><strong class="gradient-text">2+ yrs</strong><span>Built &amp; shipped</span></div>
+          </div>
+          <div class="sp-links">
+            <a href="https://www.youtube.com/watch?v=-p_LuSwFF7s" target="_blank" rel="noopener" class="btn btn-primary btn-sm" data-magnetic><i class="bi bi-play-circle-fill"></i> Watch Demo</a>
+            <a href="https://github.com/Alireza-Ezaz/7Task" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" data-magnetic><i class="bi bi-github"></i> View on GitHub</a>
+          </div>
+        </div>
+      </article>
+
       <div class="proj-filters" id="projFilters" data-aos="fade-up">
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="ai">AI &amp; Research</button>
@@ -512,6 +553,9 @@
   </footer>
 
   <button class="to-top" id="toTop" aria-label="Back to top"><i class="bi bi-arrow-up-short"></i></button>
+
+  <!-- Easter-egg toast -->
+  <div class="egg-toast" id="eggToast" role="status" aria-live="polite"></div>
 
   <!-- Vendor JS -->
   <script src="assets/vendor/aos/aos.js"></script>
