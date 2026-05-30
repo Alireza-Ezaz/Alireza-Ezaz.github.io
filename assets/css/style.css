@@ -550,6 +550,30 @@ footer {
 footer .foot-socials { display: flex; justify-content: center; gap: 16px; margin-bottom: 14px; }
 footer .foot-socials a { color: var(--text-dim); font-size: 1.25rem; }
 footer .foot-socials a:hover { color: var(--accent-2); }
+.egg-hint {
+  margin: 14px auto 0;
+  max-width: 560px;
+  font-size: .8rem;
+  color: var(--text-faint);
+  line-height: 2.1;
+}
+.egg-hint i { color: var(--accent-3); margin-right: 4px; }
+.egg-hint kbd {
+  display: inline-block;
+  min-width: 20px; text-align: center;
+  padding: 2px 6px; margin: 0 1px;
+  font-family: var(--font); font-size: .72rem; font-weight: 600;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+}
+.egg-logo-hint {
+  font-weight: 700;
+  background: var(--grad);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
 
 /*-------------------- Back to top --------------------*/
 .to-top {
